@@ -109,10 +109,10 @@ fun TextField(
                 modifier = Modifier
                     .height(4.dp)
             )
-            Row(horizontalArrangement = Arrangement.Center) {
+            Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
                 Spacer(
                     modifier = Modifier
-                        .width(4.dp)
+                        .width(12.dp)
                 )
                 Icon(
                     painter = errorIcon,
