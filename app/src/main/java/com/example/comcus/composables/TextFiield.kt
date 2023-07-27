@@ -139,7 +139,7 @@ val UnfocusedBorderThickness = 2.dp
 internal const val AnimationDuration = 150
 
 
-fun Modifier.indicatorLine(
+private fun Modifier.indicatorLine(
     enabled: Boolean,
     isError: Boolean,
     interactionSource: InteractionSource,
