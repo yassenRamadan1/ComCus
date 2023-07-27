@@ -1,6 +1,9 @@
 package com.example.comcus.composables
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,11 +16,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.comcus.R
+
 
 @Composable
 fun CustomTopAppBar(
@@ -30,7 +35,9 @@ fun CustomTopAppBar(
     leftICon:Painter = painterResource(id = R.drawable.baseline_arrow_back_24),
     rightICon:Painter = painterResource(id = R.drawable.baseline_arrow_back_24),
     text:String ="Main Activity",
-    textColor:Color= Color.Black
+    textColor:Color= Color.Black,
+    onClickLeftIcon:()->Unit= {},
+    onClickRightIcon: () -> Unit={}
     ){
     Row(
         modifier
@@ -41,19 +48,35 @@ fun CustomTopAppBar(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
         ){
+        val context = LocalContext.current
         if (showLeftICon){
         Box(modifier =Modifier){
-            Icon(painter = leftICon, contentDescription = "")
-        }}
+            Icon(painter = leftICon, contentDescription = "",
+                modifier = Modifier.clickable {
+                    mToast(context)
+                    onClickLeftIcon()
+            }
+            )
+        }
+        }
         Box(modifier =Modifier){
             Text(text = text, modifier = Modifier,color=textColor)
         }
         Box(modifier =Modifier){
             if (showRightICon){
-            Icon(painter = rightICon, contentDescription = "")}
+                Icon(painter = rightICon, contentDescription = "",
+                    Modifier.clickable {
+                        mToast(context)
+                        onClickRightIcon()
+                }
+                )
+            }
         }
     }
 
+}
+private fun mToast(context: Context){
+    Toast.makeText(context, "Iam not Here *_*", Toast.LENGTH_LONG).show()
 }
 @Preview
 @Composable
