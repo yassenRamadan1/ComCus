@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,7 +18,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.comcus.R
-import java.nio.file.WatchEvent
 
 @Composable
 fun CustomTopAppBar(
@@ -38,20 +36,21 @@ fun CustomTopAppBar(
         modifier
             .fillMaxWidth()
             .height(height)
-            .background(color),
+            .background(color)
+            .padding(paddingValues),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
         ){
-        Box(modifier =Modifier.padding(start = paddingValues.calculateTopPadding())){
-            if (showLeftICon)
+        if (showLeftICon)
+        Box(modifier =Modifier){
             Icon(painter = leftICon, contentDescription = "")
         }
-        Box(modifier =Modifier.padding(start = paddingValues.calculateTopPadding())){
+        Box(modifier =Modifier){
             Text(text = text, modifier = Modifier,color=textColor)
         }
-        Box(modifier =Modifier.padding(end = paddingValues.calculateTopPadding())){
-            if (showRightICon)
-            Icon(painter = rightICon, contentDescription = "")
+        Box(modifier =Modifier){
+            if (showRightICon){
+            Icon(painter = rightICon, contentDescription = "")}
         }
     }
 
