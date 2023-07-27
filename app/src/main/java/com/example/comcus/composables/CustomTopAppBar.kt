@@ -41,10 +41,10 @@ fun CustomTopAppBar(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
         ){
-        if (showLeftICon)
+        if (showLeftICon){
         Box(modifier =Modifier){
             Icon(painter = leftICon, contentDescription = "")
-        }
+        }}
         Box(modifier =Modifier){
             Text(text = text, modifier = Modifier,color=textColor)
         }
