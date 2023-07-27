@@ -1,4 +1,4 @@
-package com.example.comcus.composable
+package com.example.comcus.composables
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
@@ -7,9 +7,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -33,12 +35,15 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.debugInspectorInfo
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.comcus.R
 
 @Composable
 fun TextField(
@@ -56,44 +61,47 @@ fun TextField(
     textStyle: TextStyle = TextStyle(fontSize = 14.sp, color = Color.Black),
     cursorBrush: Brush = SolidColor(Color.Green),
     messageError: String = "The content is Error",
+    errorIconTint: Color = Color.Red,
     errorStyle: TextStyle = TextStyle(
         fontSize = 14.sp,
         color = Color.Red,
         fontWeight = FontWeight.Bold
     ),
+    errorIcon: Painter = painterResource(id = R.drawable.ic_error)
 ) {
-
-    Column (modifier = Modifier.clip(shape = shape)){
-        Box(
-            modifier = modifier
-                .background(color = backgroundColor)
-                .width(300.dp)
-                .indicatorLine(
-                    enabled,
-                    isError,
-                    interactionSource,
-                    if (isError) Color.Red else colors
-                ),
-            contentAlignment = Alignment.Center
-        ) {
-            Column {
-                label?.let { it() }
-                Spacer(
-                    modifier = Modifier
-                        .height(18.dp)
-                        .padding(horizontal = 4.dp)
-                )
-                BasicTextField(
-                    value = text,
-                    cursorBrush = cursorBrush,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp)
-                        .padding(paddingValues = paddingContent),
-                    maxLines = 1,
-                    textStyle = textStyle,
-                    onValueChange = onValueChange,
-                )
+    Column {
+        Column(modifier = Modifier.clip(shape = shape)) {
+            Box(
+                modifier = modifier
+                    .background(color = backgroundColor)
+                    .width(300.dp)
+                    .indicatorLine(
+                        enabled,
+                        isError,
+                        interactionSource,
+                        if (isError) Color.Red else colors
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Column {
+                    label?.let { it() }
+                    Spacer(
+                        modifier = Modifier
+                            .height(18.dp)
+                            .padding(horizontal = 4.dp)
+                    )
+                    BasicTextField(
+                        value = text,
+                        cursorBrush = cursorBrush,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 8.dp)
+                            .padding(paddingValues = paddingContent),
+                        maxLines = 1,
+                        textStyle = textStyle,
+                        onValueChange = onValueChange,
+                    )
+                }
             }
         }
         if (isError) {
@@ -101,12 +109,27 @@ fun TextField(
                 modifier = Modifier
                     .height(4.dp)
             )
-            BasicText(
-                text = messageError,
-                style = errorStyle,
-                maxLines = 1,
-                modifier = Modifier.padding(horizontal = 8.dp)
-            )
+            Row(horizontalArrangement = Arrangement.Center) {
+                Spacer(
+                    modifier = Modifier
+                        .width(4.dp)
+                )
+                Icon(
+                    painter = errorIcon,
+                    contentDescription = "error",
+                    tint = errorIconTint
+                )
+                Spacer(
+                    modifier = Modifier
+                        .height(4.dp)
+                )
+                BasicText(
+                    text = messageError,
+                    style = errorStyle,
+                    maxLines = 1,
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                )
+            }
         }
     }
 }

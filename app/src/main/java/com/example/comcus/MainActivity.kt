@@ -3,7 +3,6 @@ package com.example.comcus
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -16,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
-import com.example.comcus.composable.TextField
+import com.example.comcus.composables.TextField
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,10 +30,11 @@ class MainActivity : ComponentActivity() {
                         BasicText(text = "Email", modifier = Modifier.padding(horizontal = 16.dp))
                 },
                 modifier = Modifier.width(400.dp),
-                backgroundColor = colorResource(id = R.color.purple_200),
+                backgroundColor = colorResource(id = R.color.teal_200),
                 shape = RoundedCornerShape(100),
-                isError = false,
-                cursorBrush = SolidColor(Color.Yellow),
+                isError = true,
+                cursorBrush = SolidColor(Color.Green),
+                colors = Color.Cyan,
                 paddingContent = PaddingValues(horizontal = 16.dp),
                 onValueChange = { t ->
                     text.value = t
