@@ -1,4 +1,4 @@
-package com.example.comcus.ui.custom
+package com.example.comcus.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
